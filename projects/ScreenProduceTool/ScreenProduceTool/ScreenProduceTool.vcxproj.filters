@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\Dialog">
+      <UniqueIdentifier>{db8a0c3e-4a90-444f-9a43-87eaeae17225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Dialog">
+      <UniqueIdentifier>{0adf6325-9c28-4302-8064-53e2b92feb75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\others">
+      <UniqueIdentifier>{c350ace5-77d0-46c8-9b74-4c728a2ca1fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Manage">
+      <UniqueIdentifier>{e30500ef-7099-4865-a230-19b77de33276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Manage">
+      <UniqueIdentifier>{57e42a28-0671-4b0b-b523-f1e34c1522dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\others">
+      <UniqueIdentifier>{2fdde0b6-6897-4a62-beb2-8e597d62265e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DlgFactory.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgScreenFactory.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgUser.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenProduceTool.h">
+      <Filter>头文件\Manage</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>头文件\others</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>头文件\others</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenProduceToolDlg.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="ReportCtrl.h">
+      <Filter>头文件\Dialog</Filter>
+    </ClInclude>
+    <ClInclude Include="lb_action.h">
+      <Filter>头文件\Manage</Filter>
+    </ClInclude>
+    <ClInclude Include="SQLite3Wrapper.h">
+      <Filter>头文件\Manage</Filter>
+    </ClInclude>
+    <ClInclude Include="Clb_global.h">
+      <Filter>头文件\others</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DlgFactory.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgScreenFactory.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgUser.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenProduceTool.cpp">
+      <Filter>源文件\Manage</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenProduceToolDlg.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>源文件\others</Filter>
+    </ClCompile>
+    <ClCompile Include="ReportCtrl.cpp">
+      <Filter>源文件\Dialog</Filter>
+    </ClCompile>
+    <ClCompile Include="lb_action.cpp">
+      <Filter>源文件\Manage</Filter>
+    </ClCompile>
+    <ClCompile Include="SQLite3Wrapper.cpp">
+      <Filter>源文件\Manage</Filter>
+    </ClCompile>
+    <ClCompile Include="Clb_global.cpp">
+      <Filter>源文件\others</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ScreenProduceTool.rc">
+      <Filter>资源文件</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\ScreenProduceTool.rc2">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="resource.hm">
+      <Filter>头文件\others</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ScreenProduceTool.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\title.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\templet1.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\templet2.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_0.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_0v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_200.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_200v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_35.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_34.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_22v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_22.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_5.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_5v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_20.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_30.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_31.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_6.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_6v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_100.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_201.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap24.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_23.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_37.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_8.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_36.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_19.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_39.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_10.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_12.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_16.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_21.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\bitmap34.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_4.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_11.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_7.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_13.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_38.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_300.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_301.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_302.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_303.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_304.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_305.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_202.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_206.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_205.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_203.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_204.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_400.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_500.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_4v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_7v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_8v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_10v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_11v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_12v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_19v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_23v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_34v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_35v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_36v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_37v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_38v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_300v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_301v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\lcd_style_500v.bmp">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\Lonbon.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="res\LB.ico">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

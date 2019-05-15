@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{03E24CA4-BC56-4F7E-9E50-FAF5735B9DD8}</ProjectGuid>
+    <RootNamespace>ScreenProduceTool</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <GenerateManifest>true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>D:\projects\ScreenProduceTool\include\pjlib;D:\projects\build\wnt_vs2013\Debug\include\;D:\projects\build\wnt_vs2013\debug\include\lb_triage_db;D:\projects\ScreenProduceTool\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>D:\projects\build\wnt_vs2013\debug\lib;D:\projects\ScreenProduceTool\build\debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pjlib-i386-Win32-vc8-Debug.lib;pjlib-util-i386-Win32-vc8-Debug.lib;win32_lb_netio.lib;Winmm.lib;ss_base.lib;sqlite3_static.lib;lb_triage_db.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\projects\ScreenProduceTool\include\;D:\projects\build\wnt_vs2013\release\include\lb_triage_db;D:\projects\build\wnt_vs2013\release\include\;D:\projects\ScreenProduceTool\include\pjlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>D:\projects\ScreenProduceTool\build\release;D:\projects\build\wnt_vs2013\release\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pjlib-i386-Win32-vc8-Release.lib;pjlib-util-i386-Win32-vc8-Release.lib;win32_lb_netio.lib;Winmm.lib;ss_base.lib;sqlite3_static.lib;lb_triage_db.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>LIBCMT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0804</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Clb_global.h" />
+    <ClInclude Include="DlgFactory.h" />
+    <ClInclude Include="DlgScreenFactory.h" />
+    <ClInclude Include="DlgUser.h" />
+    <ClInclude Include="lb_action.h" />
+    <ClInclude Include="ReportCtrl.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="ScreenProduceTool.h" />
+    <ClInclude Include="ScreenProduceToolDlg.h" />
+    <ClInclude Include="SQLite3Wrapper.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Clb_global.cpp" />
+    <ClCompile Include="DlgFactory.cpp" />
+    <ClCompile Include="DlgScreenFactory.cpp" />
+    <ClCompile Include="DlgUser.cpp" />
+    <ClCompile Include="lb_action.cpp" />
+    <ClCompile Include="ReportCtrl.cpp" />
+    <ClCompile Include="ScreenProduceTool.cpp" />
+    <ClCompile Include="ScreenProduceToolDlg.cpp" />
+    <ClCompile Include="SQLite3Wrapper.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ScreenProduceTool.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource.hm" />
+    <None Include="res\ScreenProduceTool.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\bitmap24.bmp" />
+    <Image Include="res\bitmap34.bmp" />
+    <Image Include="res\LB.ico" />
+    <Image Include="res\lcd_style_0.bmp" />
+    <Image Include="res\lcd_style_0v.bmp" />
+    <Image Include="res\lcd_style_10.bmp" />
+    <Image Include="res\lcd_style_100.bmp" />
+    <Image Include="res\lcd_style_10v.bmp" />
+    <Image Include="res\lcd_style_11.bmp" />
+    <Image Include="res\lcd_style_11v.bmp" />
+    <Image Include="res\lcd_style_12.bmp" />
+    <Image Include="res\lcd_style_12v.bmp" />
+    <Image Include="res\lcd_style_13.bmp" />
+    <Image Include="res\lcd_style_16.bmp" />
+    <Image Include="res\lcd_style_19.bmp" />
+    <Image Include="res\lcd_style_19v.bmp" />
+    <Image Include="res\lcd_style_20.bmp" />
+    <Image Include="res\lcd_style_200.bmp" />
+    <Image Include="res\lcd_style_200v.bmp" />
+    <Image Include="res\lcd_style_201.bmp" />
+    <Image Include="res\lcd_style_202.bmp" />
+    <Image Include="res\lcd_style_203.bmp" />
+    <Image Include="res\lcd_style_204.bmp" />
+    <Image Include="res\lcd_style_205.bmp" />
+    <Image Include="res\lcd_style_206.bmp" />
+    <Image Include="res\lcd_style_21.bmp" />
+    <Image Include="res\lcd_style_22.bmp" />
+    <Image Include="res\lcd_style_22v.bmp" />
+    <Image Include="res\lcd_style_23.bmp" />
+    <Image Include="res\lcd_style_23v.bmp" />
+    <Image Include="res\lcd_style_30.bmp" />
+    <Image Include="res\lcd_style_300.bmp" />
+    <Image Include="res\lcd_style_300v.bmp" />
+    <Image Include="res\lcd_style_301.bmp" />
+    <Image Include="res\lcd_style_301v.bmp" />
+    <Image Include="res\lcd_style_302.bmp" />
+    <Image Include="res\lcd_style_303.bmp" />
+    <Image Include="res\lcd_style_304.bmp" />
+    <Image Include="res\lcd_style_305.bmp" />
+    <Image Include="res\lcd_style_31.bmp" />
+    <Image Include="res\lcd_style_34.bmp" />
+    <Image Include="res\lcd_style_34v.bmp" />
+    <Image Include="res\lcd_style_35.bmp" />
+    <Image Include="res\lcd_style_35v.bmp" />
+    <Image Include="res\lcd_style_36.bmp" />
+    <Image Include="res\lcd_style_36v.bmp" />
+    <Image Include="res\lcd_style_37.bmp" />
+    <Image Include="res\lcd_style_37v.bmp" />
+    <Image Include="res\lcd_style_38.bmp" />
+    <Image Include="res\lcd_style_38v.bmp" />
+    <Image Include="res\lcd_style_39.bmp" />
+    <Image Include="res\lcd_style_4.bmp" />
+    <Image Include="res\lcd_style_400.bmp" />
+    <Image Include="res\lcd_style_4v.bmp" />
+    <Image Include="res\lcd_style_5.bmp" />
+    <Image Include="res\lcd_style_500.bmp" />
+    <Image Include="res\lcd_style_500v.bmp" />
+    <Image Include="res\lcd_style_5v.bmp" />
+    <Image Include="res\lcd_style_6.bmp" />
+    <Image Include="res\lcd_style_6v.bmp" />
+    <Image Include="res\lcd_style_7.bmp" />
+    <Image Include="res\lcd_style_7v.bmp" />
+    <Image Include="res\lcd_style_8.bmp" />
+    <Image Include="res\lcd_style_8v.bmp" />
+    <Image Include="res\Lonbon.ico" />
+    <Image Include="res\ScreenProduceTool.ico" />
+    <Image Include="res\templet1.bmp" />
+    <Image Include="res\templet2.bmp" />
+    <Image Include="res\title.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="ScreenProduceTool.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,18 @@
+#ifndef LD_ROUTION_H
+#define LD_ROUTION_H
+
+typedef enum result
+{
+	LB_NO_WRONG,
+	LB_MODEL_NULL,
+	LB_MODEL_NOT_EXIST,
+	LB_OPEN_ROTATIONKEY_FAIL,
+	LB_OPEN_RGEKEY_FAIL,
+	LB_WRONG_ANGLE,
+	LB_WRONG_KEYMODEL,
+	LB_WRONG_PLAYIPMODEL,
+}ENUM_RESULT;
+
+ENUM_RESULT lb_roution_reg(char *model, int *angle);
+
+#endif

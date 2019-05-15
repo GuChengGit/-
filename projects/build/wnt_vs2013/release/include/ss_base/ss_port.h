@@ -1,0 +1,10 @@
+#ifndef _SS_PORT_H_
+#define _SS_PORT_H_
+
+#define SS_PORT_PKG_SERVER			5300
+#define SS_PORT_PKG_CLIENT			5310
+#define SS_PORT_STATUS_SERVER		5320
+#define SS_PORT_FILE_SERVER_PORT	5052
+#define SS_PORT_USER_SERVER_PORT	5053
+
+#endif //_SS_PORT_H_
