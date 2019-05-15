@@ -69,6 +69,9 @@ void CDlgUser::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BADNUM, m_badnum_set);
 	DDX_Control(pDX, IDC_STATIC_BACKGROUND2, m_modename);
 	DDX_Control(pDX, IDC_TYPEMODE, m_Typemode);
+	DDX_Control(pDX, IDC_EDIT_FILEPATH, m_filepath);
+	DDX_Control(pDX, IDC_BUTTON_VIEW, m_buttonview);
+	DDX_Control(pDX, IDC_BUTTON_UPLOAD, m_buttonupload);
 }
 
 
@@ -104,6 +107,8 @@ BEGIN_MESSAGE_MAP(CDlgUser, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_RADIO4, &CDlgUser::OnBnClickedButtonRadio4)
 	ON_BN_CLICKED(IDC_BUTTON_RADIO5, &CDlgUser::OnBnClickedButtonRadio5)
 	ON_CBN_SELCHANGE(IDC_TYPEMODE, &CDlgUser::OnCbnSelchangeTypemode)
+	ON_BN_CLICKED(IDC_BUTTON_VIEW, &CDlgUser::OnBnClickedButtonView)
+	ON_BN_CLICKED(IDC_BUTTON_UPLOAD, &CDlgUser::OnBnClickedButtonUpload)
 END_MESSAGE_MAP()
 
 
@@ -205,6 +210,12 @@ void CDlgUser::HideAllSHOW()
 	GetDlgItem(IDC_STATIC_PORT)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_HIDE);
 	//清空
+	GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_HIDE);
+
+	GetDlgItem(IDC_EDIT_FILEPATH)->SetWindowText(_T(""));
 	GetDlgItem(IDC_LETTER)->SetWindowText(_T(""));
 	GetDlgItem(IDC_EDIT_INFO_PORT)->SetWindowText(_T(""));
 	GetDlgItem(IDC_EDITCONSULTNAME)->SetWindowText(_T(""));
@@ -212,16 +223,19 @@ void CDlgUser::HideAllSHOW()
 	UINT nColWidth = 25;
 	if (mode == 1)
 	{
-		sum++;
-		int nCols = m_listtable.GetHeaderCtrl()->GetItemCount();
-		for (int j = 0; j < nCols; j++)
+		if (sum<1)
 		{
-			m_listtable.DeleteColumn(0);
+			sum++;
+			int nCols = m_listtable.GetHeaderCtrl()->GetItemCount();
+			for (int j = 0; j < nCols; j++)
+			{
+				m_listtable.DeleteColumn(0);
+			}
+			m_listtable.DeleteAllItems();
+			m_listtable.InsertColumn(0, _T("是否居中"), LVCFMT_CENTER, nColWidth*2.5);
+			m_listtable.InsertColumn(1, _T("宽度%"), LVCFMT_CENTER, nColWidth * 3);
+			m_listtable.InsertColumn(2, _T("列标题"), LVCFMT_CENTER, nColWidth * 2.7);
 		}
-		m_listtable.DeleteAllItems();
-		m_listtable.InsertColumn(0, _T("是否居中"), LVCFMT_CENTER, nColWidth*2.5);
-		m_listtable.InsertColumn(1, _T("宽度%"), LVCFMT_CENTER, nColWidth * 3);
-		m_listtable.InsertColumn(2, _T("列标题"), LVCFMT_CENTER, nColWidth * 2.7);
 	}
 	if (mode == 0)
 	{
@@ -309,7 +323,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 	USES_CONVERSION;
 
 	m_UserComboBox.GetLBText(m_UserComboBox.GetCurSel(), templetstr);
-	if (strcmp(T2A(templetstr), "门诊/体检-诊室显示屏") == 0)
+	if (strcmp(T2A(templetstr), "门诊/体检 - 诊室显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -326,7 +340,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("诊室名称："));
 	}
-	else if (strcmp(T2A(templetstr), "门诊/体检-候诊主显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊主显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -343,7 +357,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-等候显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 等候显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -365,7 +379,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_PORT)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间同步服务器IP："));
 	}
-	else if (strcmp(T2A(templetstr),"银行排队-窗口显示屏") == 0)
+	else if (strcmp(T2A(templetstr),"银行排队 - 窗口显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -381,14 +395,16 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		HideAllSHOW();
 		InitBankWindow();
 		
+		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("时间同步服务器IP："));
+		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_PORT)->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间服务器IP："));
-		GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("上传暂停信息设置"));
 		GetDlgItem(IDC_DEP_NAME)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("窗口号："));
 		GetDlgItem(IDC_CHECKHIDWINDOW)->ShowWindow(SW_SHOW);
-		GetDlgItem(IDC_CHECKHIDWINDOW)->SetWindowText(_T("隐藏叫号显示窗"));
+		GetDlgItem(IDC_CHECKHIDWINDOW)->SetWindowText(_T("隐藏叫号显示框"));
 		//IDC_STATIC_BACKGROUND  :IDC_COMBO_BACKGROUND  背景颜色
 		GetDlgItem(IDC_STATIC_BACKGROUND)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_BACKGROUND)->SetWindowText(_T("背景颜色"));
@@ -397,6 +413,12 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_FONTCOLOR)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_FONTCOLOR)->SetWindowText(_T("字体颜色"));
 		GetDlgItem(IDC_COMBOFONTCOLOR)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->SetWindowText(_T("上传图片："));
+		GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_SHOW);
+		m_buttonupload.EnableWindow(0);
 	}
 	else if (strcmp(T2A(templetstr), "信息发布系统客户端") == 0)
 	{
@@ -433,7 +455,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("列表标题："));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "门诊/体检-候诊辅显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊辅显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -450,7 +472,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_CHECKHIDWINDOW)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_CHECKSHOWRIGHT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "取药/输液-等候显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "取药/输液 - 等候显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -464,7 +486,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_MedicineWaitingRoom();
 		
 	}
-	else if (strcmp(T2A(templetstr), "取药/输液-窗口显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "取药/输液 - 窗口显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -478,7 +500,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_MedicineWindow();
 		
 	}
-	else if (strcmp(T2A(templetstr), "取药/输液-等候显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "取药/输液 - 等候显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -496,7 +518,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_CHECKHIDWINDOW)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "取药/输液-过号显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "取药/输液 - 过号显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -514,7 +536,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_DEP_NAME)->ShowWindow(SW_HIDE);
 	}
-	else if (strcmp(T2A(templetstr), "取药-液晶主显示屏3") == 0)
+	else if (strcmp(T2A(templetstr), "取药 - 液晶主显示屏3") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -528,7 +550,33 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		
 	}  
 	//--------------------------------------------------------------------
-	else if (strcmp(T2A(templetstr), "门诊/体检-候诊主显示屏2") == 0)  //changed
+	else if (strcmp(T2A(templetstr), "门诊 - 诊室显示屏5") == 0)  //changed
+	{
+		CBitmap bitmap;
+		HBITMAP hBmp;
+		bitmap.LoadBitmap(IDB_BITMAP69);
+		hBmp = (HBITMAP)bitmap.GetSafeHandle();
+		m_template.SetBitmap(hBmp);
+
+		TemplateStyle = 39;   //-------------
+		HideAllSHOW();
+		InitListTable_ShowRoom5();  //----------
+		//IDC_STATIC_LETTER: IDC_LETTER
+		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
+		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
+		//IDC_DEP_NAME:IDC_EDITCONSULTNAME
+		GetDlgItem(IDC_DEP_NAME)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("诊室名称："));
+		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->SetWindowText(_T("logo图片："));
+		GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_SHOW);
+		m_buttonupload.EnableWindow(0);
+	}
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊主显示屏2") == 0)  //changed
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -541,7 +589,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitingRoom();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "门诊/体检-诊室显示屏2") == 0)  //changed
+	else if (strcmp(T2A(templetstr), "门诊 - 诊室显示屏2") == 0)  //changed
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -551,7 +599,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 
 		TemplateStyle = 34;   //-------------
 		HideAllSHOW();
-		InitListTable_WaitingRoom();  //----------
+		InitListTable_ConsultingRoom();  //----------
 		
 		//IDC_STATIC_LETTER: IDC_LETTER
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
@@ -561,8 +609,14 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("诊室名称："));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->SetWindowText(_T("logo图片："));
+		GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_SHOW);
+		m_buttonupload.EnableWindow(0);
 	}
-	else if (strcmp(T2A(templetstr), "门诊/体检-候诊辅显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊辅显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -576,7 +630,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		
 	}
 
-	else if (strcmp(T2A(templetstr), "门诊/体检-诊室叫号屏") == 0)
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 诊室叫号屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -598,7 +652,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_EDITCONSULTNAME)->SetWindowText(_T("列表标题"));
 	}
-	else if (strcmp(T2A(templetstr), "门诊-候诊主显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "门诊 - 候诊主显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -624,7 +678,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_ConsultingRoom();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊-候诊区辅显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -637,7 +691,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitSecond2();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊-候诊区辅显示屏3") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏3") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -650,7 +704,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitSecond3();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊-候诊区辅显示屏5") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏5") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -663,7 +717,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitSecond5();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊-候诊区辅显示屏6") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏6") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -680,7 +734,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_BACKGROUND2)->SetWindowText(_T("显示："));
 		GetDlgItem(IDC_TYPEMODE)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "分诊-液晶诊室显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 液晶诊室显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -693,7 +747,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_TriageShow();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊-液晶诊室显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 液晶诊室显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -757,7 +811,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_BUTTON_RADIO4)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_BUTTON_RADIO4)->SetWindowText(_T("手动设置病床数"));
 	}
-	else if (strcmp(T2A(templetstr), "病员-览表") == 0)
+	else if (strcmp(T2A(templetstr), "病员--览表") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -839,7 +893,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitNetwork_intercom();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "开门提示-览表") == 0)
+	else if (strcmp(T2A(templetstr), "开门提示 - 览表") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -867,7 +921,14 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		TemplateStyle = 303;   //-------------
 		HideAllSHOW();
 		m_listtable.DeleteAllItems(); //----------
-		
+		GetDlgItem(IDC_STATIC_PORT)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("实时视频监控待机图片上传"));
+		GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LOGO)->SetWindowText(_T("上传图片："));
+		GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_SHOW);
+		m_buttonupload.EnableWindow(0);
 	}
 	else if (strcmp(T2A(templetstr), "走廊显示屏(条形屏)") == 0)
 	{
@@ -886,7 +947,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "设备信息状态-览表") == 0)
+	else if (strcmp(T2A(templetstr), "设备信息状态 - 览表") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -908,7 +969,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_BACKGROUND)->SetWindowText(_T("模式："));
 		GetDlgItem(IDC_COMBO_BACKGROUND)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-窗口显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 窗口显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -919,7 +980,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		TemplateStyle = 202;   //-------------
 		mode = 1; //更改表头
 		HideAllSHOW();
-		InitListTable_MedicineScreen();  //----------
+		InitListTable_MedicineScreen1();  //----------
 		
 		//IDC_STATIC_LETEER: IDC_LETTER    留言
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
@@ -934,7 +995,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("暂停服务信息："));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-窗口显示屏3") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 窗口显示屏3") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -951,7 +1012,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间同步服务器IP:"));
 		GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-叫号屏") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 叫号屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -968,7 +1029,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间同步服务器IP:"));
 		GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-主显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 主显示屏2") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -985,7 +1046,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间同步服务器IP:"));
 		GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队-窗口显示屏(条形屏)") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 窗口显示屏(条形屏)") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1006,7 +1067,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("窗口号:"));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "养老入住-览表") == 0)
+	else if (strcmp(T2A(templetstr), "养老入住 - 览表") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1047,7 +1108,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_BUTTON_RADIO4)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_BUTTON_RADIO4)->SetWindowText(_T("显示入住床位，空床位不显示"));
 	}
-	else if (strcmp(T2A(templetstr), "探访排队-等候显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "探访排队 - 等候显示屏") == 0)
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1061,6 +1122,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_Prison();
 		
 		GetDlgItem(IDC_CHECK_HIDE_BOTTOM)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_CHECK_HIDE_BOTTOM)->SetWindowText(_T("是否翻页显示"));
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
@@ -1072,7 +1134,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 	}
 }
 
-BOOL CDlgUser::InitListTable_MedicineScreen()
+BOOL CDlgUser::InitListTable_MedicineScreen1()
 {
 	m_listtable.DeleteAllItems();
 
@@ -1090,6 +1152,30 @@ BOOL CDlgUser::InitListTable_MedicineScreen()
 	{
 		m_listtable.SetItemText(j, 1, _T("20"));
 		m_listtable.SetItemText(j, 2, Item[j]);
+		m_listtable.SetCheck(j);
+	}
+
+	return TRUE;
+}
+BOOL CDlgUser::InitListTable_MedicineScreen()
+{
+	m_listtable.DeleteAllItems();
+
+	//CString Item[5] = { _T(""), _T(""), _T(""), _T(""), _T("") };
+	CString Item[6] = { _T("票号"), _T("姓名"), _T("窗口"), _T("等待人员"),_T("等待票号"),_T("等待人数") };
+	CString num[6] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"), _T("5") };
+	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
+
+	for (int i = 0; i < 6; i++)
+	{
+		m_listtable.InsertItem(i, _T(""));
+	}
+
+	for (int j = 0; j < 6; j++)
+	{
+		m_listtable.SetItemText(j, 1, Item[j]);
+		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
 
@@ -1222,6 +1308,29 @@ BOOL CDlgUser::InitListTable()
 
 	GetDlgItem(IDC_STATIC_DEVICE_IP)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_15)->ShowWindow(SW_HIDE);
+
+	return TRUE;
+}
+BOOL CDlgUser::InitListTable_ShowRoom5()   //39    1<<7,1<<0,1<<11,1<<17,1<<1
+{
+	m_listtable.DeleteAllItems();  //LBFIELD_ROOM_CODE +LBFIELD_NUMBER +LBFIELD_NAME +LBFIELD_TOBEPATIENT_NUMBER +LBFIELD_WAITING_PATIENT
+
+	CString Item[5] = { _T("诊室编号"), _T("票号"), _T("姓名"), _T("等待票号"), _T("等待人员") };
+	CString num[5] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4") };
+	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
+
+	for (int i = 0; i < 5; i++)
+	{
+		m_listtable.InsertItem(i, _T(""));
+	}
+
+	for (int j = 0; j < 5; j++)
+	{
+		m_listtable.SetItemText(j, 1, Item[j]);
+		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 3, num[j]);
+		m_listtable.SetCheck(j);
+	}
 
 	return TRUE;
 }
@@ -1888,6 +1997,31 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 
 		sprintf(head_string, "%s|%s|%s", string[0],string[1],string[2]);
 	}
+	else if (TemplateStyle == 39)
+	{
+		int head_title_name[5] = { 1 << 7, 1 << 0, 1 << 11, 1 << 17, 1 << 1 };
+		definedValue = LBFIELD_ROOM_CODE + LBFIELD_NUMBER + LBFIELD_NAME + LBFIELD_TOBEPATIENT_NUMBER + LBFIELD_WAITING_PATIENT;
+		char string[5][128];
+		for (int i = 0; i < m_listtable.GetItemCount(); i++)
+		{
+			head_name = m_listtable.GetItemText(i, 1);
+			head_width = m_listtable.GetItemText(i, 2);
+			head_seq = m_listtable.GetItemText(i, 3);
+
+			BOOL bchecked = m_listtable.GetCheck(i);
+			if (bchecked)
+			{
+				sprintf(string[i], "%s_%d_%d_%d_%d", T2A(head_name), _ttoi(head_width), 1, _ttoi(head_seq), head_title_name[i]);
+			}
+			else
+			{
+				sprintf(string[i], "%s_%d_%d_%d_%d", T2A(head_name), _ttoi(head_width), 0, _ttoi(head_seq), head_title_name[i]);
+			}
+		}
+
+		sprintf(head_string, "%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4]);
+
+	}
 	else if (TemplateStyle == 35)
 	{
 		int head_title_name[9] = { 1<<25,1<<24,1<<1,1<<2,1<<26,1<<5,1<<27,1<<28,1<<9 };
@@ -2177,6 +2311,30 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 		}
 
 		sprintf(head_string, "%s|%s|%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4], string[5], string[6]);
+	} //1<<0,1<<1,1<<2,1<<5,1<<7,1<<19,1<<11,1<<17,1<<10
+	else if (TemplateStyle == 16)
+	{
+		int head_title_name[9] = { 1 << 0, 1 << 1, 1 << 2, 1 << 5, 1 << 7, 1 << 19, 1 << 11, 1 << 17, 1 << 10 };
+		definedValue = LBFIELD_NUMBER + LBFIELD_NAME + LBFILED_DEPARTMENTS + LBFILED_DOCTOR + LBFIELD_ROOM_CODE + LBFILED_ROOM_NMAE + LBFIELD_WAITING_PATIENT + LBFIELD_TOBEPATIENT_NUMBER + LBFILED_DESCRIPTION;
+		char string[9][128];
+		for (int i = 0; i < m_listtable.GetItemCount(); i++)
+		{
+			head_name = m_listtable.GetItemText(i, 1);
+			head_width = m_listtable.GetItemText(i, 2);
+			head_seq = m_listtable.GetItemText(i, 3);
+
+			BOOL bchecked = m_listtable.GetCheck(i);
+			if (bchecked)
+			{
+				sprintf(string[i], "%s_%d_%d_%d_%d", T2A(head_name), _ttoi(head_width), 1, _ttoi(head_seq), head_title_name[i]);
+			}
+			else
+			{
+				sprintf(string[i], "%s_%d_%d_%d_%d", T2A(head_name), _ttoi(head_width), 0, _ttoi(head_seq), head_title_name[i]);
+			}
+		}
+
+		sprintf(head_string, "%s|%s|%s|%s|%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4], string[5], string[6], string[7], string[8]);
 	}
 	else if (TemplateStyle == 10)
 	{
@@ -2442,7 +2600,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 
 		sprintf(head_string, "%s|%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4], string[5]);
 	}
-	if (TemplateStyle == 200 || TemplateStyle == 35 || TemplateStyle == 100)
+	if (TemplateStyle == 35 || TemplateStyle == 100 || TemplateStyle == 200)
 	{
 		m_letter.GetWindowText(consultname);            //留言框后面
 		m_consultname.GetWindowText(lb_list_title);    //诊室名称后面的
@@ -2453,10 +2611,15 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 		m_letter.GetWindowText(server_directory);    //留言框后面
 	}
 
-	if (TemplateStyle == 7 || TemplateStyle == 29 || TemplateStyle == 30 || TemplateStyle == 31 || TemplateStyle == 201 || TemplateStyle == 203 || TemplateStyle == 206 || TemplateStyle == 204)
+	if (TemplateStyle == 7 || TemplateStyle == 29 || TemplateStyle == 30 || TemplateStyle == 31 || TemplateStyle == 203 || TemplateStyle == 206 || TemplateStyle == 204)
 	{
 		m_letter.GetWindowText(server_directory);     //留言框后面
 		m_info_server_port.GetWindowText(Infoserver_port);     //端口后面的
+	}
+	if (TemplateStyle = 201)
+	{
+		m_letter.GetWindowText(Infoserver_port);       //端口后面的
+		m_info_server_port.GetWindowText(server_directory);    //留言框后面 
 	}
 	if (TemplateStyle == -1)
 	{
@@ -3313,33 +3476,33 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	if (strcmp(T2A(appstr), "医院") == 0)
 	{
 		m_UserComboBox.ResetContent();
-		m_UserComboBox.AddString(_T("门诊/体检-诊室显示屏"));
-		m_UserComboBox.AddString(_T("门诊/体检-候诊主显示屏"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 诊室显示屏"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏"));
 		m_UserComboBox.AddString(_T("信息发布系统客户端"));
 		m_UserComboBox.AddString(_T("手术公告显示屏"));
-		m_UserComboBox.AddString(_T("门诊/体检-候诊辅显示屏2"));
-		m_UserComboBox.AddString(_T("取药/输液-等候显示屏"));
-		m_UserComboBox.AddString(_T("取药/输液-窗口显示屏"));
-		m_UserComboBox.AddString(_T("取药/输液-等候显示屏2"));
-		m_UserComboBox.AddString(_T("取药/输液-过号显示屏"));
-		m_UserComboBox.AddString(_T("取药-液晶主显示屏3"));
-		m_UserComboBox.AddString(_T("门诊/体检-候诊主显示屏2"));
-		m_UserComboBox.AddString(_T("门诊/体检-候诊辅显示屏"));
-		m_UserComboBox.AddString(_T("门诊/体检-诊室显示屏2"));
-		m_UserComboBox.AddString(_T("门诊/体检-诊室叫号屏"));
-		m_UserComboBox.AddString(_T("门诊-候诊主显示屏2"));
-		m_UserComboBox.AddString(_T("等候显示屏(条形屏)"));
-		//m_UserComboBox.AddString(_T("门诊-诊室显示屏5"));
-		m_UserComboBox.AddString(_T("分诊-候诊区辅显示屏2"));
-		m_UserComboBox.AddString(_T("分诊-候诊区辅显示屏3"));
-		m_UserComboBox.AddString(_T("分诊-候诊区辅显示屏5"));
-		m_UserComboBox.AddString(_T("分诊-候诊区辅显示屏6"));
-		m_UserComboBox.AddString(_T("分诊-液晶诊室显示屏"));
-		m_UserComboBox.AddString(_T("分诊-液晶诊室显示屏2"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏2"));
+		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏"));
+		m_UserComboBox.AddString(_T("取药/输液 - 窗口显示屏"));
+		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏2"));
+		m_UserComboBox.AddString(_T("取药/输液 - 过号显示屏"));
+		m_UserComboBox.AddString(_T("取药 - 液晶主显示屏3"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏2"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏"));
+		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏2"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 诊室叫号屏"));
+		m_UserComboBox.AddString(_T("门诊 - 候诊主显示屏2"));
+		//m_UserComboBox.AddString(_T("等候显示屏(条形屏)"));
+		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏5"));
+		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏2"));
+		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏3"));
+		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏5"));
+		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏6"));
+		m_UserComboBox.AddString(_T("分诊 - 液晶诊室显示屏"));
+		m_UserComboBox.AddString(_T("分诊 - 液晶诊室显示屏2"));
 		m_UserComboBox.AddString(_T("信息看板"));
-		m_UserComboBox.AddString(_T("病员-览表"));
-		m_UserComboBox.AddString(_T("扫码签到显示屏"));
-		SetDlgItemText(IDC_COMBOUSER,_T("门诊/体检-诊室显示屏"));
+		m_UserComboBox.AddString(_T("病员--览表"));
+		//m_UserComboBox.AddString(_T("扫码签到显示屏"));
+		SetDlgItemText(IDC_COMBOUSER,_T("门诊/体检 - 诊室显示屏"));
 		CBitmap bitmap;
 		HBITMAP hBmp;
 
@@ -3354,14 +3517,14 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	else if (strcmp(T2A(appstr),"银行") == 0)
 	{
 		m_UserComboBox.ResetContent();
-		m_UserComboBox.AddString(_T("银行排队-等候显示屏"));
-		m_UserComboBox.AddString(_T("银行排队-窗口显示屏"));
-		m_UserComboBox.AddString(_T("银行排队-窗口显示屏2"));
-		m_UserComboBox.AddString(_T("银行排队-窗口显示屏3"));
-		m_UserComboBox.AddString(_T("银行排队-叫号屏"));
-		m_UserComboBox.AddString(_T("银行排队-主显示屏2"));
-		m_UserComboBox.AddString(_T("银行排队-窗口显示屏(条形屏)"));
-		SetDlgItemText(IDC_COMBOUSER, _T("银行排队-等候显示屏"));
+		m_UserComboBox.AddString(_T("银行排队 - 等候显示屏"));
+		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏"));
+		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏2"));
+		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏3"));
+		m_UserComboBox.AddString(_T("银行排队 - 叫号屏"));
+		m_UserComboBox.AddString(_T("银行排队 - 主显示屏2"));
+		//m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏(条形屏)"));
+		SetDlgItemText(IDC_COMBOUSER, _T("银行排队 - 等候显示屏"));
 
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -3377,8 +3540,8 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	else if (strcmp(T2A(appstr), "监狱") == 0)
 	{
 		m_UserComboBox.ResetContent();
-		m_UserComboBox.AddString(_T("探访排队-等候显示屏"));
-		SetDlgItemText(IDC_COMBOUSER, _T("探访排队-等候显示屏"));
+		m_UserComboBox.AddString(_T("探访排队 - 等候显示屏"));
+		SetDlgItemText(IDC_COMBOUSER, _T("探访排队 - 等候显示屏"));
 
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -3402,10 +3565,10 @@ void CDlgUser::OnCbnSelchangeComboapp()
 		m_UserComboBox.ResetContent();
 		m_UserComboBox.AddString(_T("走廊显示屏"));
 		m_UserComboBox.AddString(_T("岗亭显示屏"));
-		m_UserComboBox.AddString(_T("开门提示-览表"));
+		m_UserComboBox.AddString(_T("开门提示 - 览表"));
 		m_UserComboBox.AddString(_T("实时监控显示屏"));
 		m_UserComboBox.AddString(_T("走廊显示屏(条形屏)"));
-		m_UserComboBox.AddString(_T("设备信息状态-览表"));
+		m_UserComboBox.AddString(_T("设备信息状态 - 览表"));
 		SetDlgItemText(IDC_COMBOUSER, _T("走廊显示屏"));
 
 		CBitmap bitmap;
@@ -3423,8 +3586,8 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	else if (strcmp(T2A(appstr), "养老院") == 0)
 	{
 		m_UserComboBox.ResetContent();
-		m_UserComboBox.AddString(_T("养老入住-览表"));
-		SetDlgItemText(IDC_COMBOUSER, _T("养老入住-览表"));
+		m_UserComboBox.AddString(_T("养老入住 - 览表"));
+		SetDlgItemText(IDC_COMBOUSER, _T("养老入住 - 览表"));
 
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -3717,4 +3880,67 @@ void CDlgUser::OnCbnSelchangeTypemode()
 		{
 			Typemode = "经典模式";
 		}
+}
+
+void CDlgUser::OnBnClickedButtonView()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	// 设置过滤器   
+	TCHAR szFilter[] = _T("所有文件(*.*)|*.*|*.jpg(*.jpg)|*.jpg|*.jpeg(*.jpeg)|*.jpeg|*.gif(*.gif)|*.gif|*.jpeg(*.jpeg)|*.jpeg|*.png(*.png)|*.png|*.htm(*.htm)|*.htm|*.html(*.html)|*.html||");
+	// 构造打开文件对话框   
+	CFileDialog fileDlg(TRUE, _T("所有文件"), NULL, 0, szFilter, this);
+	// 显示打开文件对话框  
+	strFilePath = "";
+	if (IDOK == fileDlg.DoModal())
+	{
+		// 如果点击了文件对话框上的“打开”按钮，则将选择的文件路径显示到编辑框里   
+		strFilePath = fileDlg.GetPathName();
+		SetDlgItemText(IDC_EDIT_FILEPATH, strFilePath);
+	}
+	if (strFilePath.GetLength()!=0)
+	{
+		m_buttonupload.EnableWindow(1);
+	}
+}
+
+void CDlgUser::OnBnClickedButtonUpload()
+{
+	// TODO:  在此添加控件通知处理程序代码
+	pInternetSession = NULL;
+	pFtpConnection = NULL;
+	//建立连接   
+	pInternetSession = new CInternetSession(AfxGetAppName());
+	//   
+	CString strADddress, strUserName, strPwd, strDir, strLocalFile, strRemoteFile;
+	//服务器的ip地址,用户名与密码,服务器的根目录,目标文件，目的文件
+	strADddress = "192.168.1.101";
+	strUserName = "lonbon";
+	strPwd = "lonbon";
+	strDir = "\\img\\title";  //路径名称可能有问题
+	pFtpConnection = pInternetSession->GetFtpConnection(strADddress, strUserName, strPwd);
+	bool bRetVal = pFtpConnection->SetCurrentDirectory(strDir); 
+	if (bRetVal == false)   
+	{ 
+		//AfxMessageBox("目录设置失败");       
+		return;
+	}
+	else
+	{
+		//把本地文件上传到服务器上    
+		//strLocalFile = strFilePath;
+		strRemoteFile = "icon.png";      
+		pFtpConnection->PutFile((LPCTSTR)strFilePath, (LPCTSTR)strRemoteFile);
+	}
+	//释放资源
+	if(NULL != pFtpConnection)
+	{        
+		pFtpConnection->Close();
+		delete pFtpConnection;
+		pFtpConnection = NULL;
+	}    
+	if(NULL != pInternetSession)
+	{        
+		delete pInternetSession;
+		pInternetSession = NULL;
+	}
 }

@@ -5,6 +5,7 @@
 #include "afxcmn.h"
 #include "SQLite3Wrapper.h"
 #include "lb_action.h"
+#include "afxinet.h"
 
 // CDlgUser ¶Ô»°¿ò
 
@@ -107,6 +108,8 @@ public:
 	BOOL InitBanksort();
 	BOOL InitListTable_Bankshow2();
 	BOOL InitListTable_ScanCheck();
+	BOOL InitListTable_MedicineScreen1();
+	BOOL InitListTable_ShowRoom5();
 
 	afx_msg void OnCbnSelchangeCombouser();
 	afx_msg void OnStnClickedStaticheadline();
@@ -144,6 +147,7 @@ public:
 	CString BackGroundColor;
 	CString FontColor;
 	CString Typemode;
+	CString strFilePath;
 	
 	afx_msg void OnNMDblclkListtable(NMHDR *pNMHDR, LRESULT *pResult);
 	CEdit m_EditVirtual;
@@ -199,4 +203,12 @@ public:
 	CComboBox m_Typemode;
 	afx_msg void OnCbnSelchangeTypemode();
 	int mode=0,sum=0;
+	CEdit m_filepath;
+	CButton m_buttonview;
+	CButton m_buttonupload;
+	afx_msg void OnBnClickedButtonView();
+	afx_msg void OnBnClickedButtonUpload();
+
+	CInternetSession *pInternetSession;
+	CFtpConnection *pFtpConnection;
 };
