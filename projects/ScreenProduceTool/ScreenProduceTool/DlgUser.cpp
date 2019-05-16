@@ -2724,7 +2724,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				pos = lb_str_getTail(pos);
 				sprintf(pos, "isHideBottom:%d\r\n", isHidePrisonBottom);   //是否翻页显示
 			}
-			else if (TemplateStyle == 13)
+			else if (TemplateStyle == 13)  //没有isHidePrisonBottom？？？
 			{
 				pos = lb_str_getTail(pos);
 				sprintf(pos, "isWindowOrder:%d\r\n", isWindowOrder);   //按窗口排序
