@@ -1910,7 +1910,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 	::AllocConsole();
 	FILE *fp;
 	freopen_s(&fp, "CONOUT$", "w+t", stdout);
-	char msg[1024];
+	char msg[1024] = { 0 };
 	char sql[2048] = { 0 };
 	char *pos = NULL;
 	char head_string[1024] = { 0 };
@@ -2603,7 +2603,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 
 		sprintf(head_string, "%s|%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4], string[5]);
 	}
-	if (TemplateStyle == 35 || TemplateStyle == 36 || TemplateStyle == 100 || TemplateStyle == 200)     //200的还差一个是否翻页显示
+/*	if (TemplateStyle == 35 || TemplateStyle == 36 || TemplateStyle == 100 || TemplateStyle == 200)     //200的还差一个是否翻页显示
 	{
 		m_letter.GetWindowText(consultname);            //留言框后面
 		m_consultname.GetWindowText(lb_list_title);    //诊室名称后面的
@@ -2794,7 +2794,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				//pos = lb_str_getTail(pos);
 				//sprintf(pos, "isHideBottom:%d\r\n", isHideBottom);   //隐藏过号病人    显示心率指标
 			}
-			
+
 			lb_netio_msg_sendto3(msg, sizeof(msg), T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
 			printf("the message is:\n %s\n",msg);
 			printf("the screen ip is %s\n", T2A(ScreenIp));
@@ -2812,6 +2812,293 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 			
 		}
 		
+	}*/
+	if (TemplateStyle == -1)
+	{
+		MessageBox(_T("请先选择模板！"));
+	}
+	else
+	{
+		checkadv();
+		if (Check != 0)
+		{
+			sprintf(msg, "%s", "Action:NlvDcInfoData\r\n");
+			pos = lb_str_getTail(msg);
+			sprintf(pos, "%s", "message:2007\r\n");
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "style:%d\r\n", TemplateStyle);
+
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "isHidenTitle:%d\r\n", isHidenTitle);    //隐藏标题栏
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "title:%s\r\n", T2A(title));     //主标题
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "sub_title:%s\r\n", T2A(Subtitle));    //副标题
+
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "x0:%d\r\n", _ttoi(X));    //x
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "y0:%d\r\n", _ttoi(Y));    //y
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "width:%d\r\n", _ttoi(width));    //width
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "height:%d\r\n", _ttoi(height));    //height
+
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "isAdEnabled:%d\r\n", isAdEnabled);   //广告开关
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "isAdVideoEnabled:%d\r\n", isAdVideoEnabled);  //视频广告开关
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "isAdTextEnabled:%d\r\n", isAdTextEnabled);    //文字广告开关
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "adAreaPercent:%d\r\n", _ttoi(percent));     //广告比例
+
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "SystemVoice:%d\r\n", _ttoi(voice));    //声音
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "number_of_rows:%d\r\n", _ttoi(row));   //行
+
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "tableheads_str:%s\r\n", head_string);    //拼接起来的(名称，诊室，医生等等)
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "defined_value:%d\r\n", definedValue);    //移位数拼接(1<<1等)
+
+			//consultname 留言 ，lb_list_title 列表标题 ，Infoserver_port 服务器端口ip ，area_number 区号 ，server_directory 服务器目录
+
+			//手术公告显示屏   ,门诊 - 诊室叫号屏
+			if (TemplateStyle == 35 || TemplateStyle == 36)
+			{
+				m_letter.GetWindowText(consultname);
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_list_title:%s\r\n", T2A(lb_list_title));
+			}
+			else if (TemplateStyle == 100)	//探访排队 - 等候显示屏
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+
+				/*  //是否翻页显示，第二排第一个
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%d\r\n", isHidePrisonBottom);
+				*/
+			}
+			else if (TemplateStyle == 200)	//银行排队 - 等候显示屏
+			{
+				m_letter.GetWindowText(consultname);
+				m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+
+				/*  //是否翻页显示，第一排第一个
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%d\r\n", isWindowOrder);
+				*/
+			}
+			else if (TemplateStyle == 21)	//分诊 - 候诊区辅显示屏6
+			{
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "ShowModel:%s\r\n", T2A(Typemode));
+			}
+			//门诊 - 诊室显示屏2   ,门诊 - 诊室显示屏5
+			else if (TemplateStyle == 34 || TemplateStyle == 39)
+			{
+				m_letter.GetWindowText(consultname);
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_clinic_name:%s\r\n", T2A(lb_list_title));
+			}
+			else if (TemplateStyle == 22)	//门诊/体检 - 候诊辅显示屏2
+			{
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isHideBottom:%d\r\n", isHideBottom);   //隐藏过号病人
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isHideCallInfo:%d\r\n", isHideCallInfo);   //隐藏窗口显示框
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "ShowCallInfoByRight:%d\r\n", ShowCallInfoByRight);   //呼叫右框侧显示
+			}
+			//门诊/体检 - 候诊主显示屏  ,取药/输液 - 过号显示屏  ,开门提示 - 览表  ,走廊显示屏(条形屏)
+			else if (TemplateStyle == 0 || TemplateStyle == 31 || TemplateStyle == 302 || TemplateStyle == 304)
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+			}
+			else if (TemplateStyle == 14)	//门诊/体检 - 诊室显示屏
+			{
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_clinic_name:%s\r\n", T2A(lb_list_title));
+			}
+			else if (TemplateStyle == 30)	//取药/输液 - 等候显示屏2
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isHideCallInfo:%d\r\n", isHideCallInfo);   //隐藏窗口显示框
+			}
+			else if (TemplateStyle == 201)    //银行排队 - 窗口显示屏
+			{
+				m_letter.GetWindowText(Infoserver_port);   //时间同步服务器ip？
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "number_of_screen:%s\r\n", T2A(lb_list_title));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_background_style:%s\r\n", T2A(BackGroundColor));   //背景颜色
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_font_style:%s\r\n", T2A(FontColor));	//字体颜色
+				/*
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isHideCallInfo:%d\r\n", isHideCallInfo);   //隐藏窗口显示框  ???隐藏叫号显示框
+				*/
+			}
+			else if (TemplateStyle == 202)   //银行排队 - 窗口显示屏2
+			{
+				m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				/*
+				m_consultname.GetWindowText(lb_list_title);   //暂停服务信息
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%s\r\n", T2A(lb_list_title));
+
+				m_letter.GetWindowText(consultname);  //评价信息
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%s\r\n", T2A(consultname));
+				*/
+			}
+			//银行排队 - 主显示屏2   ,银行排队 - 窗口显示屏3   ,银行排队 - 叫号屏
+			else if (TemplateStyle == 203 || TemplateStyle == 206 || TemplateStyle == 205)
+			{
+				m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+			}
+			//走廊显示屏
+			else if (TemplateStyle == 300)
+			{
+				/*
+				pos = lb_str_getTail(pos);    //是否无呼叫记录显示
+				sprintf(pos, "-------:%d\r\n", isWindowOrder);
+				*/
+			}
+			else if (TemplateStyle == 305)   //设备信息状态 - 览表
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				/*
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "model:%s\r\n", T2A(BackGroundColor));    //模式  复位取消模式...
+				*/
+			}
+			else if (TemplateStyle == 400)   //养老入住
+			{
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(lb_list_title));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isTodayInPatient:%d\r\n", isWindowOrder);
+				/*
+				pos = lb_str_getTail(pos);    //显示心率，呼吸指标
+				sprintf(pos, "-------:%d\r\n", isHideBottom);
+
+				m_letter.GetWindowText(consultname);  //呼叫，报警弹出框停留时间
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%s\r\n", T2A(consultname));
+
+				m_info_server_port.GetWindowText(Infoserver_port);  //床位页面翻动切换时间
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%s\r\n", T2A(Infoserver_port));
+				*/
+			}
+			else if (TemplateStyle == 13)   //医院 - 览表
+			{
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(lb_list_title));
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "boxstay_opacity:%s\r\n", T2A(consultname));
+				m_info_server_port.GetWindowText(Infoserver_port);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "StayTime:%s\r\n", T2A(Infoserver_port));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isTodayInPatient:%d\r\n", isWindowOrder);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "ShowModel:%s\r\n", T2A(BackGroundColor));   //显示
+				/*
+				if (BackGroundColor == "标准模式" || BackGroundColor == "经典模式")
+				{
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isShowLowestLevel:%d\r\n", isHideBottom);	//显示最低护理级别
+				}
+				if (BackGroundColor == "简易图标" || BackGroundColor == "信息统计模式" || BackGroundColor == "简约模式")
+				{
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%d\r\n", isHideBottom);	//显示空床信息
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%d\r\n", isHidePrisonBottom);	//分页页卡自适应
+				}
+				if (BackGroundColor == "大屏翻页")
+				{
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "display_statistics:%d\r\n", isHideBottom);	//显示统计信息
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "-------:%d\r\n", isHidePrisonBottom);	//显示空床信息
+				}
+				*/
+			}
+			else if (TemplateStyle == 7) //信息看板
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
+				m_consultname.GetWindowText(lb_list_title);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "area_number:%s\r\n", T2A(lb_list_title));
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isShowLowestLevel:%d\r\n", isWindowOrder);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "isDisplayDataSource:%s\r\n", T2A(BackGroundColor)); //数据源
+				if (BackGroundColor == "HIS数据源(不含本地留言)" || BackGroundColor == "HIS数据源(含本地留言)")
+				{
+					m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
+					pos = lb_str_getTail(pos);
+					sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				}
+			}
+			else
+				printf("----------------\n");
+			int num = 0;
+			while (msg[num]!='\0')
+				num++;
+			//lb_netio_msg_sendto3(msg, sizeof(msg), T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
+			lb_netio_msg_sendto3(msg, num, T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
+			printf("the message is:\n %s\n", msg);
+			printf("the screen ip is %s\n", T2A(ScreenIp));
+
+			//存数据库
+			CppSQLite3DB db;
+			db.open(LB_SCREEN_DB);
+			sprintf(sql, "update LBScreentemplate set style = %d,tv_message = '%s',isHidenTitle = %d, title = '%s',sub_title = '%s',x0 = %d, y0 = %d,width = %d,height = %d,isAdEnabled = %d,isAdVideoEnabled = %d,isAdTextEnabled = %d,adAreaPercent = %d,SystemVoice = %d,number_of_columns = %d,tableheads_str = '%s',defined_value = %d where id in(select Screentemplate_id from LBScreenInfo where master_number = %d and slave_number = %d)",
+				TemplateStyle, T2A(consultname), isHidenTitle, T2A(title), T2A(Subtitle), _ttoi(X), _ttoi(Y), _ttoi(width), _ttoi(height), isAdEnabled, isAdVideoEnabled, isAdTextEnabled, _ttoi(percent), _ttoi(voice), _ttoi(row), head_string, definedValue, _ttoi(master_num), _ttoi(slave_num));
+			db.execDML(sql);
+			printf("the sql is %s\n", sql);
+			db.close();
+			FreeConsole();
+			MessageBox(_T("设置模板已发起！"));
+		}
 	}
 	return TRUE;
 }
@@ -3360,7 +3647,7 @@ void CDlgUser::OnBnClickedButtonNumSet()
 BOOL CDlgUser::SendScreenSystemSet(CString ScreenIp)
 {
 	CString address_box_ip, master_number, slave_number,device_number,device_ip;
-	char msg[512];
+	char msg[512] = {0};
 	char sql[2048] = { 0 };
 	char *pos = NULL;
 
@@ -3388,9 +3675,11 @@ BOOL CDlgUser::SendScreenSystemSet(CString ScreenIp)
 
 		//pos = lb_str_getTail(pos);
 		//sprintf(pos, "deviceip:%s\r\n", T2A(device_ip));
-
-		lb_netio_msg_sendto3(msg, sizeof(msg), T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
-
+		int num = 0;
+		while (msg[num] != '\0')
+			num++;
+		//lb_netio_msg_sendto3(msg, sizeof(msg), T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
+		lb_netio_msg_sendto3(msg, num, T2A(ScreenIp), PORT_NUM_SETTEMPLATE);
 		//更新数据库
 		CppSQLite3DB db;
 		db.open(LB_SCREEN_DB);
