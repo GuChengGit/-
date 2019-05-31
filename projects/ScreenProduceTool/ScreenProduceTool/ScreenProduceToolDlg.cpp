@@ -199,7 +199,6 @@ BOOL CScreenProduceToolDlg::OnInitDialog()
 		printf("error,call lb_action_monitor_init function failed!\n");
 		return -1;
 	}
-
 	InitTabCtrl();
 	ScreenFactory.InitScreenFactoryListCtrl();
 	ScreenFactory.ScreenFactoryComboBoxInit();
@@ -243,7 +242,6 @@ void CScreenProduceToolDlg::OnPaint()
 	if (IsIconic())
 	{
 		CPaintDC dc(this); // 用于绘制的设备上下文
-
 		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
 		// 使图标在工作区矩形中居中
@@ -256,6 +254,7 @@ void CScreenProduceToolDlg::OnPaint()
 
 		// 绘制图标
 		dc.DrawIcon(x, y, m_hIcon);
+
 	}
 	else
 	{
