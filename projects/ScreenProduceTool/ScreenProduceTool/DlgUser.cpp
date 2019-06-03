@@ -291,8 +291,8 @@ void  CDlgUser::typemode()
 BOOL CDlgUser::InitUserComBox()
 {
 	m_ComboBox_App.AddString(_T("医院"));
-	m_ComboBox_App.AddString(_T("银行"));
 	m_ComboBox_App.AddString(_T("监狱"));
+	m_ComboBox_App.AddString(_T("银行"));
 	m_ComboBox_App.AddString(_T("网络对讲"));
 	m_ComboBox_App.AddString(_T("养老院"));  
 	m_ComboBox_App.AddString(_T("信息发布"));
@@ -313,6 +313,8 @@ BOOL CDlgUser::InitUserComBox()
 	GetDlgItem(IDC_BUTTON_RADIO4)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BUTTON_RADIO5)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BAD_SET)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_STATIC_BACKGROUND2)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_TYPEMODE)->ShowWindow(SW_HIDE);
 	return TRUE;
 }
 
@@ -432,7 +434,12 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		TemplateStyle = 29;
 		HideAllSHOW();
 		m_listtable.DeleteAllItems();
-		
+		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("目录："));
+		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_DEP_NAME)->ShowWindow(SW_SHOW);
+		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("服务器IP："));
+		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
 	else if (strcmp(T2A(templetstr), "手术公告显示屏") == 0)
 	{
@@ -455,7 +462,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("列表标题："));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊辅显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "门诊/体检 - 候诊辅显示屏2") == 0)     //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -472,7 +479,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_CHECKHIDWINDOW)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_CHECKSHOWRIGHT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "取药/输液 - 等候显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "取药/输液 - 等候显示屏") == 0)    //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -512,7 +519,6 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		HideAllSHOW();
 		InitListTable_MedicineWaitingRoom2();
 		
-		
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
@@ -529,7 +535,6 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		TemplateStyle = 31;
 		HideAllSHOW();
 		InitListTable_MedicineWindow();   //Same as Window
-		
 		
 		GetDlgItem(IDC_STATIC_LETTER)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
@@ -589,7 +594,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitingRoom();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "门诊 - 诊室显示屏2") == 0)  //changed
+	else if (strcmp(T2A(templetstr), "门诊 - 诊室显示屏2") == 0)  //changed     //????//
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -665,7 +670,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitShow2();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "等候显示屏(条形屏)") == 0)
+	else if (strcmp(T2A(templetstr), "等候显示屏(条形屏)") == 0)  //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -704,7 +709,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitListTable_WaitSecond3();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏5") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 候诊区辅显示屏5") == 0)  //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -734,7 +739,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_BACKGROUND2)->SetWindowText(_T("显示："));
 		GetDlgItem(IDC_TYPEMODE)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "分诊 - 液晶诊室显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "分诊 - 液晶诊室显示屏") == 0)  //？？？？？
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -811,7 +816,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_BUTTON_RADIO4)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_BUTTON_RADIO4)->SetWindowText(_T("手动设置病床数"));
 	}
-	else if (strcmp(T2A(templetstr), "病员--览表") == 0)
+	else if (strcmp(T2A(templetstr), "病员--览表") == 0)   //????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -893,7 +898,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		InitNetwork_intercom();  //----------
 		
 	}
-	else if (strcmp(T2A(templetstr), "开门提示 - 览表") == 0)
+	else if (strcmp(T2A(templetstr), "开门提示 - 览表") == 0)  //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -910,7 +915,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_LETTER)->SetWindowText(_T("温馨提示："));
 		GetDlgItem(IDC_LETTER)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "实时监控显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "实时监控显示屏") == 0)    //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -969,7 +974,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_BACKGROUND)->SetWindowText(_T("模式："));
 		GetDlgItem(IDC_COMBO_BACKGROUND)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队 - 窗口显示屏2") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 窗口显示屏2") == 0)  //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1012,7 +1017,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_STATIC_PORT)->SetWindowText(_T("时间同步服务器IP:"));
 		GetDlgItem(IDC_EDIT_INFO_PORT)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "银行排队 - 叫号屏") == 0)
+	else if (strcmp(T2A(templetstr), "银行排队 - 叫号屏") == 0)    //????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1067,7 +1072,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_DEP_NAME)->SetWindowText(_T("窗口号:"));
 		GetDlgItem(IDC_EDITCONSULTNAME)->ShowWindow(SW_SHOW);
 	}
-	else if (strcmp(T2A(templetstr), "养老入住 - 览表") == 0)
+	else if (strcmp(T2A(templetstr), "养老入住 - 览表") == 0)     //?????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1108,7 +1113,7 @@ void CDlgUser::OnCbnSelchangeCombouser()
 		GetDlgItem(IDC_BUTTON_RADIO4)->ShowWindow(SW_SHOW);
 		GetDlgItem(IDC_BUTTON_RADIO4)->SetWindowText(_T("显示入住床位，空床位不显示"));
 	}
-	else if (strcmp(T2A(templetstr), "探访排队 - 等候显示屏") == 0)
+	else if (strcmp(T2A(templetstr), "探访排队 - 等候显示屏") == 0)    //????
 	{
 		CBitmap bitmap;
 		HBITMAP hBmp;
@@ -1164,6 +1169,7 @@ BOOL CDlgUser::InitListTable_MedicineScreen()
 	//CString Item[5] = { _T(""), _T(""), _T(""), _T(""), _T("") };
 	CString Item[6] = { _T("票号"), _T("姓名"), _T("窗口"), _T("等待人员"),_T("等待票号"),_T("等待人数") };
 	CString num[6] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"), _T("5") };
+	CString width[6] = { _T("20"), _T("25"), _T("20"), _T("15"), _T("10"), _T("10") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 6; i++)
@@ -1174,7 +1180,7 @@ BOOL CDlgUser::InitListTable_MedicineScreen()
 	for (int j = 0; j < 6; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1188,6 +1194,7 @@ BOOL CDlgUser::InitListTable_MedicineWaitingRoom2()
 
 	CString Item[4] = { _T("票号"), _T("姓名"), _T("等待人员"), _T("等待票号") };
 	CString num[4] = { _T("0"), _T("1"),_T("2"), _T("3") };
+	CString width[4] = { _T("20"), _T("35"), _T("20"), _T("25") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 4; i++)
@@ -1198,7 +1205,7 @@ BOOL CDlgUser::InitListTable_MedicineWaitingRoom2()
 	for (int j = 0; j < 4; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1212,6 +1219,8 @@ BOOL CDlgUser::InitListTable_MedicineWindow()
 
 	CString Item[2] = { _T("票号"), _T("姓名") };
 	CString num[2] = {_T("0"),_T("1")};
+	CString width[2] = { _T("30"), _T("40") };
+	CString width2[2] = { _T("30"), _T("40") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 2; i++)
@@ -1222,7 +1231,14 @@ BOOL CDlgUser::InitListTable_MedicineWindow()
 	for (int j = 0; j < 2; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		if (TemplateStyle == 6 )
+		{
+			m_listtable.SetItemText(j, 2, width[j]);
+		}
+		else if (TemplateStyle == 31)
+		{
+			m_listtable.SetItemText(j, 2, width2[j]);
+		}
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1237,6 +1253,7 @@ BOOL CDlgUser::InitListTable_MedicineWaitingRoom()
 
 	CString Item[4] = { _T("票号"), _T("姓名"), _T("窗口"), _T("状态") };
 	CString num[4] = {_T("0"),_T("1"),_T("2"),_T("3")};
+	CString width[4] = { _T("20"), _T("35"), _T("20"), _T("25") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 4; i++)
@@ -1247,7 +1264,7 @@ BOOL CDlgUser::InitListTable_MedicineWaitingRoom()
 	for (int j = 0; j < 4; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1261,6 +1278,7 @@ BOOL CDlgUser::InitListTable_ConsultingRoom()
 	//UINT nColWidth = 50;
 	CString Item[5] = {_T("诊室编号"),_T("票号"),_T("姓名"),_T("等待票号"),_T("等待人员")};
 	CString num[5] = {_T("0"),_T("1"),_T("2"),_T("3"),_T("4")};
+	CString width[5] = { _T("15"), _T("20"), _T("15"), _T("25"), _T("25") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 
@@ -1277,7 +1295,20 @@ BOOL CDlgUser::InitListTable_ConsultingRoom()
 	for (int j = 0; j < 5; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		if (TemplateStyle == 14)
+		{
+			m_listtable.SetItemText(j, 2, _T("100"));
+		}
+		else if (TemplateStyle == 34)
+		{
+			m_listtable.SetItemText(j, 2, _T("20"));
+		}
+		else if (TemplateStyle == 37)
+		{
+			m_listtable.SetItemText(j, 2, width[j]);
+		}
+		else 
+			m_listtable.SetItemText(j, 2, _T("100"));
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1308,6 +1339,10 @@ BOOL CDlgUser::InitListTable()
 
 	GetDlgItem(IDC_STATIC_DEVICE_IP)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_15)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_HIDE);
 
 	return TRUE;
 }
@@ -1317,6 +1352,7 @@ BOOL CDlgUser::InitListTable_ShowRoom5()   //39    1<<7,1<<0,1<<11,1<<17,1<<1
 
 	CString Item[5] = { _T("诊室编号"), _T("票号"), _T("姓名"), _T("等待票号"), _T("等待人员") };
 	CString num[5] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4") };
+	//CString width[5] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 5; i++)
@@ -1327,7 +1363,7 @@ BOOL CDlgUser::InitListTable_ShowRoom5()   //39    1<<7,1<<0,1<<11,1<<17,1<<1
 	for (int j = 0; j < 5; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, _T("20"));
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1341,6 +1377,7 @@ BOOL CDlgUser::InitListTable_WaitingRoom()    //0     有了
 	
 	CString Item[8] = { _T("票号"), _T("姓名"), _T("科室"), _T("门诊类别"),_T("诊室编号"),_T("诊室名称"),_T("医生"),_T("备注") };
 	CString num[8] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6"),_T("7") };
+	CString width[8] = { _T("13"), _T("13"), _T("13"), _T("12"), _T("7"), _T("15"), _T("16"), _T("11") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 8; i++)
@@ -1351,7 +1388,7 @@ BOOL CDlgUser::InitListTable_WaitingRoom()    //0     有了
 	for (int j = 0; j < 8; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1365,6 +1402,7 @@ BOOL CDlgUser::InitListTable_ScanCheck()
 	//    LBFIELD_NAME+ LBFILED_ROOM_NMAE+ LBFIELD_ROOM_CODE+ LBFIELD_DESCRIPTION  + LBFIELD_WAITING_PATIENT+ LBFIELD_WAITING_COUNT+ LBFIELD_MESSAGE
 	CString Item[7] = {  _T("姓名"), _T("诊室名称"), _T("诊室编号"), _T("备注"), _T("等待人员"), _T("等待人数"), _T("信息") };
 	CString num[7] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"), _T("5"), _T("6") };
+	CString width[7] = { _T("10"), _T("15"), _T("10"), _T("20"), _T("15"), _T("10"), _T("20") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 7; i++)
@@ -1375,7 +1413,7 @@ BOOL CDlgUser::InitListTable_ScanCheck()
 	for (int j = 0; j < 7; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1389,6 +1427,7 @@ BOOL CDlgUser::InitListTable_SecondWaitingRoom()   //8      1<<0,1<<1,1<<2,1<<4,
 
 	CString Item[10] = { _T("票号"), _T("姓名"), _T("科室"), _T("门诊类别"),_T("诊室编号"),_T("诊室名称"),_T("医生"),_T("等待人数"),_T("等待人员"),_T("等待票号") };
 	CString num[10] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6"),_T("7"),_T("8"),_T("9") };
+	CString width[10] = { _T("11"), _T("11"), _T("11"), _T("11"), _T("7"), _T("10"), _T("10"), _T("7"), _T("12"), _T("10") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 10; i++)
@@ -1399,7 +1438,7 @@ BOOL CDlgUser::InitListTable_SecondWaitingRoom()   //8      1<<0,1<<1,1<<2,1<<4,
 	for (int j = 0; j < 10; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1413,6 +1452,7 @@ BOOL CDlgUser::InitListTable_WaitSecond3()    //12       1<<0,1<<1,1<<2,1<<4,1<<
 
 	CString Item[7] = { _T("票号"), _T("姓名"), _T("科室"), _T("门诊类别"),_T("医生"),_T("诊室编号"),_T("诊室名称") };
 	CString num[7] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6") };
+	CString width[7] = { _T("10"), _T("10"), _T("15"), _T("15"), _T("15"), _T("15"), _T("20") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 7; i++)
@@ -1423,7 +1463,7 @@ BOOL CDlgUser::InitListTable_WaitSecond3()    //12       1<<0,1<<1,1<<2,1<<4,1<<
 	for (int j = 0; j < 7; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1437,6 +1477,7 @@ BOOL CDlgUser::InitListTable_WaitSecond5()  //16   1<<0,1<<1,1<<2,1<<5,1<<7,1<<1
 
 	CString Item[9] = { _T("票号"), _T("姓名"), _T("科室"),_T("医生"),_T("诊室编号"),_T("诊室名称"),_T("等待人员"),_T("等待票号"),_T("备注") };
 	CString num[9] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6"),_T("7"),_T("8") };
+	CString width[9] = { _T("10"), _T("10"), _T("15"), _T("15"), _T("10"), _T("10"), _T("10"), _T("10"), _T("10") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 9; i++)
@@ -1447,7 +1488,7 @@ BOOL CDlgUser::InitListTable_WaitSecond5()  //16   1<<0,1<<1,1<<2,1<<5,1<<7,1<<1
 	for (int j = 0; j < 9; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1471,7 +1512,7 @@ BOOL CDlgUser::InitListTable_WaitSecond6()  //21    1<<0,1<<1,1<<2,1<<5,1<<7,1<<
 	for (int j = 0; j < 10; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, _T("10"));
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1485,6 +1526,7 @@ BOOL CDlgUser::InitListTable_WaitSecond2()    //10   1<<7,1<<19,1<<5,1<<2,1<<4,1
 
 	CString Item[9] = { _T("诊室编号"), _T("诊室名称"), _T("医生"), _T("科室"),_T("门诊类别"),_T("票号"),_T("姓名"),_T("等待票号"),_T("等待人员") };
 	CString num[9] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6"),_T("7"),_T("8") };
+	CString width[9] = { _T("7"), _T("14"), _T("15"), _T("9"), _T("7"), _T("12"), _T("12"), _T("12"), _T("12") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 9; i++)
@@ -1495,7 +1537,7 @@ BOOL CDlgUser::InitListTable_WaitSecond2()    //10   1<<7,1<<19,1<<5,1<<2,1<<4,1
 	for (int j = 0; j < 9; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1509,6 +1551,7 @@ BOOL CDlgUser::InitListTable_WaitShow2()   //19     1<<0,1<<1,1<<2,1<<4,1<<7,1<<
 
 	CString Item[9] = { _T("票号"), _T("姓名"), _T("科室"), _T("门诊类别"),_T("诊室编号"),_T("诊室名称"),_T("医生"),_T("备注"),_T("状态") };
 	CString num[9] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"),_T("5"),_T("6"),_T("7"),_T("8") };
+	CString width[9] = { _T("13"), _T("12"), _T("12"), _T("10"), _T("7"), _T("12"), _T("12"), _T("10"), _T("12") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 9; i++)
@@ -1519,7 +1562,7 @@ BOOL CDlgUser::InitListTable_WaitShow2()   //19     1<<0,1<<1,1<<2,1<<4,1<<7,1<<
 	for (int j = 0; j < 9; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1533,6 +1576,7 @@ BOOL CDlgUser::InitListTable_call()   //36    1<<1,1<<2,1<<5,1<<11,1<<19
 
 	CString Item[5] = { _T("姓名"), _T("科室"), _T("医生"),_T("等待人员"),_T("诊室名称") };
 	CString num[5] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4") };
+	CString width[5] = { _T("15"), _T("20"), _T("15"), _T("25"), _T("25") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 5; i++)
@@ -1543,7 +1587,7 @@ BOOL CDlgUser::InitListTable_call()   //36    1<<1,1<<2,1<<5,1<<11,1<<19
 	for (int j = 0; j < 5; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1605,6 +1649,7 @@ BOOL CDlgUser::InitListTable_WaitingRoom2()  //22    1<<0,1<<1,1<<18,1<<7,1<<19,
 
 	CString Item[9] = { _T("票号"), _T("姓名"), _T("科室医生"), _T("诊室编号"), _T("诊室名称"), _T("等待人员"), _T("等待票号"), _T("备注"), _T("等待备注")};
 	CString num[9] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"), _T("5"), _T("6"), _T("7"), _T("8")};
+	CString width[9] = { _T("10"), _T("15"), _T("10"), _T("10"), _T("10"), _T("15"), _T("10"), _T("10"), _T("10") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 9; i++)
@@ -1615,7 +1660,7 @@ BOOL CDlgUser::InitListTable_WaitingRoom2()  //22    1<<0,1<<1,1<<18,1<<7,1<<19,
 	for (int j = 0; j < 9; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("10"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1638,7 +1683,7 @@ BOOL CDlgUser::InitListTable_BankWaitingRoom()  //200     1<<0,1<<9,1<<8,1<<4,1<
 	for (int j = 0; j < 5; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, _T("20"));
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1651,6 +1696,7 @@ BOOL CDlgUser::InitListTable_Bankshow2()  //203   有
 	m_listtable.DeleteAllItems();
 	CString Item[3] = { _T("票号"),_T("窗口"),_T("状态")};
 	CString num[3] = { _T("0"), _T("1"), _T("2")};
+	CString width[3] = { _T("30"), _T("30"), _T("40") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 3; i++)
@@ -1661,7 +1707,7 @@ BOOL CDlgUser::InitListTable_Bankshow2()  //203   有
 	for (int j = 0; j < 3; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1698,6 +1744,7 @@ BOOL CDlgUser::InitListTable_HospitalRoom()   //有
 	m_listtable.DeleteAllItems();
 	CString Item[9] = { _T("时间"), _T("手术间"), _T("姓名"), _T("科室"), _T("手术名称"), _T("医生"), _T("等级"), _T("麻醉医生"), _T("状态") };
 	CString num[9] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4"), _T("5"), _T("6"), _T("7"), _T("8") };
+	CString width[9] = { _T("15"), _T("10"), _T("10"), _T("10"), _T("10"), _T("10"), _T("15"), _T("10"), _T("10") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 9; i++)
@@ -1708,7 +1755,7 @@ BOOL CDlgUser::InitListTable_HospitalRoom()   //有
 	for (int j = 0; j < 9; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1744,6 +1791,7 @@ BOOL CDlgUser::InitNetwork_intercom()   //300,301,304   1<<13,1<<9
 	m_listtable.DeleteAllItems();	//LBFIELD_MESSAGE +LBFIELD_STATE 
 	CString Item[2] = { _T("信息"), _T("状态") };
 	CString num[2] = { _T("0"), _T("1") };
+	CString width[2] = { _T("60"), _T("40") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
 	for (int i = 0; i < 2; i++)
@@ -1754,7 +1802,7 @@ BOOL CDlgUser::InitNetwork_intercom()   //300,301,304   1<<13,1<<9
 	for (int j = 0; j < 2; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, width[j]);
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -1777,7 +1825,7 @@ BOOL CDlgUser::InitBanksort_Window3()   //206   1<<1,1<<0,1<<7,1<<13
 	for (int j = 0; j < 4; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
-		m_listtable.SetItemText(j, 2, _T("100"));
+		m_listtable.SetItemText(j, 2, _T("25"));
 		m_listtable.SetItemText(j, 3, num[j]);
 		m_listtable.SetCheck(j);
 	}
@@ -3078,6 +3126,15 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 					sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
 				}
 			}
+			else if (TemplateStyle == 29)
+			{
+				m_letter.GetWindowText(consultname);
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "server_directory:%s\r\n", T2A(consultname));
+				m_consultname.GetWindowText(lb_list_title);    //服务器IP
+				pos = lb_str_getTail(pos);
+				sprintf(pos, "tv_message:%s\r\n", T2A(lb_list_title));
+			}
 			else
 				printf("----------------\n");
 			int num = 0;
@@ -3796,21 +3853,15 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	if (strcmp(T2A(appstr), "医院") == 0)
 	{
 		m_UserComboBox.ResetContent();
-		m_UserComboBox.AddString(_T("门诊/体检 - 诊室显示屏"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏"));
-		m_UserComboBox.AddString(_T("信息发布系统客户端"));
-		m_UserComboBox.AddString(_T("手术公告显示屏"));
-		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏2"));
-		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏"));
-		m_UserComboBox.AddString(_T("取药/输液 - 窗口显示屏"));
-		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏2"));
-		m_UserComboBox.AddString(_T("取药/输液 - 过号显示屏"));
-		m_UserComboBox.AddString(_T("取药 - 液晶主显示屏3"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏2"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏2"));
+		m_UserComboBox.AddString(_T("门诊/体检 - 诊室显示屏"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏2"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室叫号屏"));
 		m_UserComboBox.AddString(_T("门诊 - 候诊主显示屏2"));
+		m_UserComboBox.AddString(_T("信息发布系统客户端"));
 		//m_UserComboBox.AddString(_T("等候显示屏(条形屏)"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏5"));
 		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏2"));
@@ -3819,10 +3870,16 @@ void CDlgUser::OnCbnSelchangeComboapp()
 		m_UserComboBox.AddString(_T("分诊 - 候诊区辅显示屏6"));
 		m_UserComboBox.AddString(_T("分诊 - 液晶诊室显示屏"));
 		m_UserComboBox.AddString(_T("分诊 - 液晶诊室显示屏2"));
+		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏"));
+		m_UserComboBox.AddString(_T("取药/输液 - 窗口显示屏"));
+		m_UserComboBox.AddString(_T("取药/输液 - 等候显示屏2"));
+		m_UserComboBox.AddString(_T("取药/输液 - 过号显示屏"));
+		m_UserComboBox.AddString(_T("取药 - 液晶主显示屏3"));
 		m_UserComboBox.AddString(_T("信息看板"));
 		m_UserComboBox.AddString(_T("病员--览表"));
+		m_UserComboBox.AddString(_T("手术公告显示屏"));
 		//m_UserComboBox.AddString(_T("扫码签到显示屏"));
-		SetDlgItemText(IDC_COMBOUSER,_T("门诊/体检 - 诊室显示屏"));
+		SetDlgItemText(IDC_COMBOUSER,_T("门诊/体检 - 候诊主显示屏"));
 		CBitmap bitmap;
 		HBITMAP hBmp;
 
@@ -3840,8 +3897,8 @@ void CDlgUser::OnCbnSelchangeComboapp()
 		m_UserComboBox.AddString(_T("银行排队 - 等候显示屏"));
 		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏"));
 		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏2"));
-		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏3"));
 		m_UserComboBox.AddString(_T("银行排队 - 叫号屏"));
+		m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏3"));
 		m_UserComboBox.AddString(_T("银行排队 - 主显示屏2"));
 		//m_UserComboBox.AddString(_T("银行排队 - 窗口显示屏(条形屏)"));
 		SetDlgItemText(IDC_COMBOUSER, _T("银行排队 - 等候显示屏"));

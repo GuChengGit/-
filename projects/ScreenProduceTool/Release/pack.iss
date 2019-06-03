@@ -33,36 +33,36 @@ Name: "chinesesimp"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkablealone  
 
 [Files]
-Source: "D:\projects\ScreenProduceTool\Release\ScreenProduceTool.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\Lonbon.ico"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120chs.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120cht.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120deu.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120enu.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120esn.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120fra.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120ita.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120jpn.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120kor.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120rus.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120u.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfc120ud.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfcm120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfcm120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfcm120u.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\mfcm120ud.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\msvcp120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\msvcp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\msvcr120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\msvcr120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vcamp120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vcamp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vccorlib120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vccorlib120d.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vcomp120.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "D:\projects\ScreenProduceTool\Release\vcomp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\ScreenProduceTool.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\Lonbon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120chs.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120cht.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120deu.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120enu.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120esn.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120fra.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120ita.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120jpn.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120kor.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120rus.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120u.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfc120ud.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfcm120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfcm120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfcm120u.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\mfcm120ud.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\msvcp120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\msvcp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\msvcr120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\msvcr120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vcamp120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vcamp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vccorlib120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vccorlib120d.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vcomp120.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "D:\git\showwindow\projects\ScreenProduceTool\Release\vcomp120d.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
 
 [Icons]
