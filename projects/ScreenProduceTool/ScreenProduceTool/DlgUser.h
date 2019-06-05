@@ -31,17 +31,16 @@
 #define LBFIELD_TOBEPATIENT_NUMBER   (1<<17)     //等待票号
 #define LBFIELD_DEPARTMENT_DOCTOR    (1<<18)     //科室医生
 #define LBFILED_ROOM_NMAE   (1<<19)     //诊室名称
-#define LBFILED_WAIT_DESCRIPTION  (1<<20)   //等待备注
 
 #define LBFIELD_WAIT_DESCRIPTION (1<<20)   //等待备注
 #define LBFIELD_INITSCREEN    (1<<23)  //初始化显示屏
-#define LBFILED_OPERATION_ROOM (1<<24)   //手术间
-#define LBFILED_TIME  (1<<25)   //时间
-#define LBFILED_OPERATION_NAME  (1<<26)   //手术名称
-#define LBFILED_LEVEL   (1<<27)    //等级
-#define LBFILED_ANESTHETIST  (1<<28)   //麻醉医生
-#define LBFIELD_LAWYER  (1<<29)   //律师
-#define LBFIELD_MEETING_AREA (1<<30)  //会见区
+#define LBFIELD_OPERATIONROOM (1<<24)   //手术间
+#define LBFIELD_TIME  (1<<25)   //时间
+#define LBFIELD_OPERATIVENAME   (1<<26)   //手术名称
+#define LBFIELD_LEVEL    (1<<27)    //等级
+#define LBFIELD_ANESTHESIOLOGIST (1<<28)   //麻醉医生
+#define LBFIELD_LAWYER   (1<<29)   //律师
+#define LBFIELD_MEETING_AREA  (1<<30)  //会见区
 
 
 class CDlgUser : public CDialogEx
@@ -211,4 +210,8 @@ public:
 
 	CInternetSession *pInternetSession;
 	CFtpConnection *pFtpConnection;
+	//增加获取上一次ip，主机号等等
+	CString Address_box_ip, Master_number, Slave_number, Device_number, Device_ip;
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButtonHelp();
 };

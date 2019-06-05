@@ -289,7 +289,7 @@ void CDlgScreenFactory::OnBnClickedButtonlicense()
 
 void CDlgScreenFactory::OnBnClickedButtonrefresh()
 {
-	// TODO:  在此添加控件通知处理程序代码
+	 //TODO:  在此添加控件通知处理程序代码
 	lb_broadcast_screen();
 	//m_ScreenFactoryListCtrl.DeleteAllItems();
 	//RefreshList();
