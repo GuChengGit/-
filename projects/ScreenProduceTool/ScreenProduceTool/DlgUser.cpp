@@ -1407,7 +1407,7 @@ BOOL CDlgUser::InitListTable()
 	GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BUTTON_UPLOAD)->ShowWindow(SW_HIDE);   
-	//GetDlgItem(IDC_BUTTON_HELP)->ShowWindow(SW_HIDE);
+	GetDlgItem(IDC_BUTTON_HELP)->ShowWindow(SW_HIDE);
 
 	return TRUE;
 }
@@ -1735,16 +1735,17 @@ BOOL CDlgUser::InitListTable_WaitingRoom2()  //22    1<<0,1<<1,1<<18,1<<7,1<<19,
 BOOL CDlgUser::InitListTable_BankWaitingRoom()  //200     1<<0,1<<9,1<<8,1<<4,1<<9,1<<12
 {
 	m_listtable.DeleteAllItems();	//LBFIELD_NUMBER +LBFILED_STATE +LBFILED_WINDOW+LBFILED_OUTPATIENT_SERVICE+LBFILED_STATE +LBFIELD_WAITING_COUNT
-	CString Item[5] = { _T("票号"), _T("窗口"), _T("门诊类别"), _T("状态"), _T("等待人数") };
-	CString num[5] = { _T("0"), _T("1"), _T("2"), _T("3"), _T("4") };
+	//CString Item[5] = { _T("票号"), _T("窗口"), _T("门诊类别"), _T("状态"), _T("等待人数") };
+	CString Item[3] = { _T("票号"), _T("窗口"), _T("状态") };
+	CString num[3] = { _T("0"), _T("1"), _T("2") };
 	m_listtable.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT | LVS_EX_CHECKBOXES);
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		m_listtable.InsertItem(i, _T(""));
 	}
 
-	for (int j = 0; j < 5; j++)
+	for (int j = 0; j < 3; j++)
 	{
 		m_listtable.SetItemText(j, 1, Item[j]);
 		m_listtable.SetItemText(j, 2, _T("20"));
@@ -2355,9 +2356,11 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 	}
 	else if (TemplateStyle == 200)
 	{
-		int head_title_name[5] = { 1 << 0, 1 << 8, 1 << 4, 1 << 9, 1 << 12 };
-		definedValue = LBFIELD_NUMBER  + LBFILED_WINDOW + LBFILED_OUTPATIENT_SERVICE + LBFILED_STATE + LBFIELD_WAITING_COUNT;
-		char string[5][128];
+		//int head_title_name[5] = { 1 << 0, 1 << 8, 1 << 4, 1 << 9, 1 << 12 };
+		int head_title_name[3] = { 1 << 0, 1 << 8, 1 << 9 };
+		//definedValue = LBFIELD_NUMBER  + LBFILED_WINDOW + LBFILED_OUTPATIENT_SERVICE + LBFILED_STATE + LBFIELD_WAITING_COUNT;
+		definedValue = LBFIELD_NUMBER + LBFILED_WINDOW + LBFILED_STATE;
+		char string[3][128];
 		for (int i = 0; i < m_listtable.GetItemCount(); i++)
 		{
 			head_name = m_listtable.GetItemText(i, 1);
@@ -2375,7 +2378,8 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 			}
 		}
 
-		sprintf(head_string, "%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4]);
+		//sprintf(head_string, "%s|%s|%s|%s|%s", string[0], string[1], string[2], string[3], string[4]);
+		sprintf(head_string, "%s|%s|%s", string[0], string[1], string[2]);
 	}
 	else if (TemplateStyle == 201)
 	{
@@ -3027,7 +3031,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				pos = lb_str_getTail(pos);
 				sprintf(pos, "tv_message:%s\r\n", T2A(consultname));
 				pos = lb_str_getTail(pos);
-				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				sprintf(pos, "lb_ntpserverIp:%d\r\n", _ttoi(Infoserver_port));
 
 			    //是否翻页显示，第一排第一个   //？？？？
 				pos = lb_str_getTail(pos);
@@ -3111,7 +3115,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				m_letter.GetWindowText(Infoserver_port);   //时间同步服务器ip？  去掉
 				m_consultname.GetWindowText(lb_list_title);
 				pos = lb_str_getTail(pos);
-				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				sprintf(pos, "lb_ntpserverIp:%d\r\n", _ttoi(Infoserver_port));
 				pos = lb_str_getTail(pos);
 				sprintf(pos, "tv_message:%s\r\n", T2A(lb_list_title));
 				pos = lb_str_getTail(pos);
@@ -3127,7 +3131,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 			{
 				m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
 				pos = lb_str_getTail(pos);
-				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				sprintf(pos, "lb_ntpserverIp:%d\r\n", _ttoi(Infoserver_port));
 				/*
 				m_consultname.GetWindowText(lb_list_title);   //暂停服务信息
 				pos = lb_str_getTail(pos);
@@ -3143,7 +3147,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 			{
 				m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
 				pos = lb_str_getTail(pos);
-				sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+				sprintf(pos, "lb_ntpserverIp:%d\r\n", _ttoi(Infoserver_port));
 			}
 			//走廊显示屏
 			else if (TemplateStyle == 300)
@@ -3242,7 +3246,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				{
 					m_info_server_port.GetWindowText(Infoserver_port);  //时间同步服务器ip？
 					pos = lb_str_getTail(pos);
-					sprintf(pos, "lb_infoserver_port:%d\r\n", _ttoi(Infoserver_port));
+					sprintf(pos, "lb_ntpserverIp:%d\r\n", _ttoi(Infoserver_port));   // lb_infoserver_port
 				}
 			}
 			else if (TemplateStyle == 29)
@@ -3854,7 +3858,7 @@ BOOL CDlgUser::SendScreenSystemSet(CString ScreenIp)
 	m_master_number.GetWindowText(master_number);
 	m_slave_number.GetWindowText(slave_number);
 	m_device_number.GetWindowText(device_number);
-	if ((strlen(T2A(address_box_ip)) <= 0) || (strlen(T2A(master_number)) <= 0) || (strlen(T2A(slave_number)) <= 0) || (strlen(T2A(device_number)) <= 0))
+	if ((strlen(T2A(master_number)) <= 0) || (strlen(T2A(slave_number)) <= 0) || (strlen(T2A(device_number)) <= 0))
 	{
 		m_address_box.SetWindowText(Address_box_ip);
 		m_master_number.SetWindowText(Master_number);
@@ -3872,8 +3876,21 @@ BOOL CDlgUser::SendScreenSystemSet(CString ScreenIp)
 		Master_number = master_number;
 		Slave_number = slave_number;
 		Device_number = device_number;
-	}	
-	if ((strlen(T2A(address_box_ip)) > 0) && (strlen(T2A(master_number)) > 0) && (strlen(T2A(slave_number)) > 0) && (strlen(T2A(device_number)) > 0))
+	}
+	if (!(TemplateStyle == 200 || TemplateStyle == 201 || TemplateStyle == 202 || TemplateStyle == 204 || TemplateStyle == 205 || TemplateStyle == 206 ))
+	{
+		if (strlen(T2A(address_box_ip)) <= 0)
+		{
+			MessageBox(_T("输入的某项信息为空，请检查并重新输入有效的信息 ！"));
+			return TRUE;
+		}
+	}
+	else
+	{
+		address_box_ip = "0";
+		m_address_box.SetWindowText(_T(""));
+	}
+	if ( (strlen(T2A(master_number)) > 0) && (strlen(T2A(slave_number)) > 0) && (strlen(T2A(device_number)) > 0))
 	{
 		sprintf(msg, "%s", "Action:NlvDcSetData\r\n");
 		pos = lb_str_getTail(msg);
@@ -4012,13 +4029,13 @@ void CDlgUser::OnCbnSelchangeComboapp()
 	{
 		m_UserComboBox.ResetContent();
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏"));
-		m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏2"));
+		//m_UserComboBox.AddString(_T("门诊/体检 - 候诊主显示屏2"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 候诊辅显示屏2"));
 		m_UserComboBox.AddString(_T("门诊/体检 - 诊室显示屏"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏2"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室叫号屏"));
-		m_UserComboBox.AddString(_T("门诊 - 候诊主显示屏2"));
+		//m_UserComboBox.AddString(_T("门诊 - 候诊主显示屏2"));
 		m_UserComboBox.AddString(_T("信息发布系统客户端"));
 		//m_UserComboBox.AddString(_T("等候显示屏(条形屏)"));
 		m_UserComboBox.AddString(_T("门诊 - 诊室显示屏5"));
