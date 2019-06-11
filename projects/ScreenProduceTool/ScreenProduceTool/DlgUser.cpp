@@ -72,6 +72,7 @@ void CDlgUser::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_EDIT_FILEPATH, m_filepath);
 	DDX_Control(pDX, IDC_BUTTON_VIEW, m_buttonview);
 	DDX_Control(pDX, IDC_BUTTON_UPLOAD, m_buttonupload);
+	DDX_Control(pDX, IDC_STATIC_DEVICE_IP, m_host_list);
 }
 
 
@@ -136,6 +137,7 @@ void CDlgUser::InitUserReportCtrl()
 	m_row.SetWindowText(_T("4"));
 	m_voice.SetWindowText(_T("5"));
 	m_percent.SetWindowText(_T("33"));
+	m_device_ip.SetWindowText(_T("50"));
 
 }
 //one 
@@ -1401,8 +1403,8 @@ BOOL CDlgUser::InitListTable()
 	GetDlgItem(IDC_CHECKCONSULTORDER)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_CHECK_HIDE_BOTTOM)->ShowWindow(SW_HIDE);
 
-	GetDlgItem(IDC_STATIC_DEVICE_IP)->ShowWindow(SW_HIDE);
-	GetDlgItem(IDC_EDIT_15)->ShowWindow(SW_HIDE);
+	//GetDlgItem(IDC_STATIC_DEVICE_IP)->ShowWindow(SW_HIDE);
+	//GetDlgItem(IDC_EDIT_15)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_STATIC_LOGO)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_EDIT_FILEPATH)->ShowWindow(SW_HIDE);
 	GetDlgItem(IDC_BUTTON_VIEW)->ShowWindow(SW_HIDE);
@@ -3001,6 +3003,10 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 			pos = lb_str_getTail(pos);
 			sprintf(pos, "defined_value:%d\r\n", definedValue);    //移位数拼接(1<<1等)
 
+			m_device_ip.GetWindowText(area_number);   //
+			pos = lb_str_getTail(pos);
+			sprintf(pos, "mstNunList:%s\r\n", area_number);    //主机列表，默认50
+
 			//consultname 留言 ，lb_list_title 列表标题 ，Infoserver_port 服务器端口ip ，area_number 区号 ，server_directory 服务器目录
 
 			//手术公告显示屏   ,门诊 - 诊室叫号屏
@@ -3135,7 +3141,7 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				/*
 				m_consultname.GetWindowText(lb_list_title);   //暂停服务信息
 				pos = lb_str_getTail(pos);
-				sprintf(pos, "-------:%s\r\n", T2A(lb_list_title));
+				sprintf(pos, "lb_pause_msg:%s\r\n", T2A(lb_list_title));
 
 				m_letter.GetWindowText(consultname);  //评价信息
 				pos = lb_str_getTail(pos);
@@ -3203,7 +3209,13 @@ BOOL CDlgUser::SendScreenProperty(CString ScreenIp)
 				if (BackGroundColor == "1" || BackGroundColor == "0")
 				{
 					pos = lb_str_getTail(pos);
-					sprintf(pos, "isShowLowestLevel:%d\r\n", isHideBottom);	//显示最低护理级别
+					sprintf(pos, "isShowLowestLevel:%d\r\n", isHideBottom);	//显示最低护理级别   
+					pos = lb_str_getTail(pos);
+					sprintf(pos, "lb_grid_mode:%d\r\n", m_button_radio+1);    //病床显示设置
+
+					m_badnum_set.GetWindowText(consultname);
+					pos = lb_str_getTail(pos);
+					sprintf(pos, "lb_grid_count:%s\r\n", T2A(consultname));   //手动设置病床数
 				}
 				if (BackGroundColor == "3" || BackGroundColor == "4" || BackGroundColor == "5")
 				{

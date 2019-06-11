@@ -189,7 +189,7 @@ public:
 	afx_msg void OnCbnSelchangeCombo1();
 
 	CButton m_button_radio3;
-	BOOL m_button_radio;
+	int m_button_radio;
 	afx_msg void OnBnClickedButtonRadio3();
 	afx_msg void OnBnClickedButtonRadio4();
 	afx_msg void OnBnClickedButtonRadio5();
@@ -214,4 +214,5 @@ public:
 	CString Address_box_ip, Master_number, Slave_number, Device_number, Device_ip;
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButtonHelp();
+	CStatic m_host_list;
 };
